@@ -1,10 +1,8 @@
-from django.db import connection
 from django.contrib.auth import authenticate, logout
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from .models import User
-from customers.models import Client
 from .serializers import UserSerializer, UserLoginSerializer, AuthUserSerializer
 
 
@@ -37,4 +35,3 @@ class UserModelViewset(ModelViewSet):
             return Response("Please Login")
         logout(request.user)
         return Response("sucessfully logged Out")
-

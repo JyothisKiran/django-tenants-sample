@@ -1,12 +1,8 @@
-from django.shortcuts import redirect
 from rest_framework.viewsets import ModelViewSet
 from users.models import User
-from users.serializers import UserSerializer, UserLoginSerializer,UsernameSerializer
+from users.serializers import UserSerializer, UsernameSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.db import connection
-from .models import Client
-from django_tenants.utils import get_tenant_model
 
 # Create your views here.
 
@@ -25,7 +21,6 @@ class UserModelViewset(ModelViewSet):
             print('hi')
             return UsernameSerializer(*args, **kwargs)
         return super().get_serializer(*args, **kwargs)
-    
 
     @action(['POST',], detail=False)
     def find_domain(self, request):
@@ -41,5 +36,4 @@ class UserModelViewset(ModelViewSet):
         else:
             print("redirecting to public")
             redirect_url = 'http://localhost:8000/au/u/users/login'
-        
         return Response(data={'data': serializer.data, 'login url': redirect_url})
